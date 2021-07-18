@@ -1,0 +1,95 @@
+function getEventsSaleCalendar() {
+      var lastUpdated = new Date();
+      var Cal = CalendarApp.getCalendarById('walkie.com.tw_69ir8v6tpd97dua5epui6sejps@group.calendar.google.com');
+    var events = Cal.getEventsForDay(lastUpdated);
+    for(var i = 0;i < events.length; i++){
+      var event_title = events[i].getTitle();
+      var pos = event_title.indexOf("啟售");
+      var res = event_title.substr(pos-5, 5);
+      var str = lastUpdated.toString();
+      Logger.log("res:" + res);
+      Logger.log("str:" + str);
+      Logger.log("str substr:" + str.substr(16,5));
+      if (str.substr(16,5) == res) {
+//       sheet.appendRow([lastUpdated, totalActiveUsers, totalActiveUsersFiltered, event_title]);
+      } else {
+//        sheet.appendRow([lastUpdated, totalActiveUsers, totalActiveUsersFiltered]);
+      }
+    }
+  return;
+  var today = new Date();
+  var dd = today.getDate()-1;
+    Logger.log(today);
+  today.setDate(dd);
+        Logger.log(today.getDate());
+//var calendars = CalendarApp.getAllOwnedCalendars();
+//Logger.log(calendars[0].getName()+calendars[0].getId()+calendars[1].getName()+calendars[1].getId()+calendars[2].getName()+calendars[2].getId());
+  
+  var ddd = new Date("Aug 24 2018");
+  var events = CalendarApp.getDefaultCalendar().getEventsForDay(today);
+  var event2 = CalendarApp.getCalendarById('walkie.com.tw_69ir8v6tpd97dua5epui6sejps@group.calendar.google.com');
+ // var test = event2.getEventsForDay(today.getDate());
+  //Logger.log(test);
+  //var event_mame = CalendarApp.getName(event2);
+  //var events = CalendarApp.getEventById("d2Fsa2llLmNvbS50d182OWlyOHY2dHBkOTdkdWE1ZXB1aTZzZWpwc0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t");
+  //var events = CalendarApp.getEventById("walkie.com.tw_69ir8v6tpd97dua5epui6sejps@group.calendar.google.com");
+  var aaa = event2.getEventsForDay(ddd);
+  Logger.log("eve:"+event2);
+  Logger.log("aaa: "+ aaa[0].getTitle());
+
+      for(var i = 0;i < aaa.length; i++){
+        var event_title = aaa[i].getTitle();
+        var pos = event_title.indexOf("啟售");
+        var res = event_title.substr(pos-5, 5);
+        var ssss = today.toString();
+        Logger.log(ssss);
+        if (ssss.substr(11,5) == res) {
+          Logger.log("yyyy");
+        } else {
+          Logger.log("nnnn");
+        }
+    }
+  //Logger.log(events);
+}
+
+/*function getRealTimeDataSourceMedium() {
+
+    var ana = Analytics.Data.Realtime.get('ga:77670632','rt:activeUsers',{'dimensions':"rt:source,rt:medium"})
+
+    var sheet = SpreadsheetApp.openById("1_UziZL5GnPYaXzj0toP2JMuuXv2SMF_82cVIPO1oG-w");
+    var source = sheet.getSheetByName("工作表1");
+    source.clear();
+    var totalActiveOrders = ana.totalsForAllResults['rt:activeUsers'];
+    var lastUpdated = new Date();
+
+
+    sheet.getRange('A1:D1').merge();
+    sheet.appendRow(["Last Updated: "+lastUpdated]);
+    sheet.appendRow(["Source","Medium","Active Users","Total Active Users = " + ana.totalsForAllResults['rt:activeUsers']]);
+    Logger.log(ana.totalsForAllResults['rt:activeUsers']);
+
+
+    for(var i = 0;i < ana.rows.length; i++){
+        sheet.appendRow([ana.rows[i][0], ana.rows[i][1], ana.rows[i][2]]);
+        Logger.log("Source:"+ana.rows[i][0]+"Medium"+ana.rows[i][1]+"Active Users:"+ana.rows[i][2]);
+    }
+    var cell_timestamp = sheet.getRange("A1");
+    cell_timestamp.setBackground("yellowgreen");
+    cell_timestamp.setFontWeight("bold");
+    cell_timestamp.setHorizontalAlignment("center");
+    cell_timestamp.setBorder(true, true, true, true, true, true);
+    var range_head = sheet.getRange("A2:C2");
+    range_head.setBackground("lightgray");
+    range_head.setFontWeight("bold");
+    range_head.setHorizontalAlignment("center");
+    range_head.setBorder(true, true, true, true, true, true);
+    var cell_total = sheet.getRange("D2");
+    cell_total.setBackground("lightskyblue");
+    cell_total.setFontWeight("bold");
+    cell_total.setHorizontalAlignment("center");
+    cell_total.setBorder(true, true, true, true, true, true);
+    var range_values = sheet.getRange("A3:C1000");
+    range_values.setBorder(true, true, true, true, true, true);
+    var range_metrics = sheet.getRange("C3:C1000");
+    range_metrics.setHorizontalAlignment("center");
+}*/
