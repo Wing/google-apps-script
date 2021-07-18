@@ -1,0 +1,25 @@
+function getRealTimeActiveUsers() {
+
+    var GaRealtimeRawData = Analytics.Data.Realtime.get('ga:77670632','rt:activeUsers')
+    var GaRealtimeFiltered = Analytics.Data.Realtime.get('ga:79024564','rt:activeUsers')
+
+    var sheet = SpreadsheetApp.openById("1mgx2rDNkfg-Rpi1SL6kM7GGR_p9-X-IquHGKVH3-40E");
+    var source = sheet.getSheetByName("活躍使用者數據");
+    var totalActiveUsers = GaRealtimeRawData.totalsForAllResults['rt:activeUsers'];
+    var totalActiveUsersFiltered = GaRealtimeFiltered.totalsForAllResults['rt:activeUsers'];
+    var lastUpdated = new Date();
+
+    var Cal = CalendarApp.getCalendarById('walkie.com.tw_69ir8v6tpd97dua5epui6sejps@group.calendar.google.com');
+    var events = Cal.getEventsForDay(lastUpdated);
+    for(var i = 0;i < events.length; i++){
+      var event_title = events[i].getTitle();
+      var pos = event_title.indexOf("啟售");
+      var res = event_title.substr(pos-5, 5);
+      var str = lastUpdated.toString();
+      if (str.substr(11,5) == res) {
+        sheet.appendRow([lastUpdated, totalActiveUsers, totalActiveUsersFiltered, event_title]);
+      } else {
+        sheet.appendRow([lastUpdated, totalActiveUsers, totalActiveUsersFiltered]);
+      }
+    }
+}
